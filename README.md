@@ -39,42 +39,65 @@
 ```
 femtriage/
 ├── data/
-│   ├── PCOS.csv                           # Clinical PCOS dataset (541 patients)
-│   └── structured_endometriosis_data.csv  # Endometriosis dataset (10,000 patients)
+│ ├── PCOS.csv
+│ └── structured_endometriosis_data.csv
 ├── models/
-│   ├── pcos_model.pkl                     # Trained GBM classifier — PCOS
-│   ├── pcos_scaler.pkl                    # StandardScaler fitted on PCOS training data
-│   ├── pcos_feature_cols.pkl              # Ordered feature list (critical for inference)
-│   ├── endo_model.pkl                     # Trained GBM classifier — Endometriosis
-│   ├── endo_scaler.pkl                    # StandardScaler fitted on endo training data
-│   └── endo_feature_cols.pkl              # Ordered feature list
-├── femtriage.html                         # Standalone offline demo (models embedded)
-├── train.py                               # Model training script
-├── app.py                                 # Streamlit app
+│ ├── pcos_model.pkl
+│ ├── pcos_scaler.pkl
+│ ├── pcos_feature_cols.pkl
+│ ├── endo_model.pkl
+│ ├── endo_scaler.pkl
+│ └── endo_feature_cols.pkl
+├── femtriage.html
+├── train.py
+├── app.py
 ├── requirements.txt
 └── README.md
 ```
+---
+
+## ⚠️ Dataset Note
+
+The datasets are required to train the models.
+
+Ensure this structure exists:
+```
+  data/
+├── PCOS.csv
+├── structured_endometriosis_data.csv
+
+```
+---
+
+
+If datasets are missing, training will fail with:
+`FileNotFoundError`
+
+👉 Make sure these files are included in your repository or added manually.
 
 ---
 
 ## 🚀 Quick Start
 
 ```bash
-# 1. Clone the repo
+# Clone repo
 git clone https://github.com/fatimaasif1508-code/FemTriage.git
 cd femtriage
 
-# 2. Install dependencies
+# Install dependencies
 pip install -r requirements.txt
 
-# 3. Train models (generates .pkl files)
+# Train models
 python train.py
 
-# 4. Run Streamlit app
+# Run app
 streamlit run app.py
 ```
+🎥 Demo
+Open femtriage.html → Fully offline AI demo
+Or run Streamlit app for interactive interface
 
-Or open `femtriage.html` directly in any browser — no server needed.
+👉 No backend required — models run directly in-browser
 
 ---
 
@@ -98,13 +121,11 @@ pcos_model  = joblib.load('models/pcos_model.pkl')
 pcos_scaler = joblib.load('models/pcos_scaler.pkl')
 pcos_cols   = joblib.load('models/pcos_feature_cols.pkl')
 
-# Engineer features
-patient['LH_FSH_ratio']   = patient['LH(mIU/mL)'] / patient['FSH(mIU/mL)']
+patient['LH_FSH_ratio'] = patient['LH(mIU/mL)'] / patient['FSH(mIU/mL)']
 patient['Total_Follicles'] = patient['Follicle No. (L)'] + patient['Follicle No. (R)']
 
 X = np.array([[patient[f] for f in pcos_cols]])
 pcos_prob = pcos_model.predict_proba(pcos_scaler.transform(X))[0][1]
-print(f"PCOS risk: {pcos_prob*100:.1f}%")
 ```
 
 ---
