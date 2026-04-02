@@ -37,43 +37,39 @@
 ## 📁 Repository Structure
 
 ```
-femtriage/
+FemTriage/
 ├── data/
-│ ├── PCOS.csv
-│ └── structured_endometriosis_data.csv
+│   ├── PCOS.csv
+│   └── structured_endometriosis_data.csv
 ├── models/
-│ ├── pcos_model.pkl
-│ ├── pcos_scaler.pkl
-│ ├── pcos_feature_cols.pkl
-│ ├── endo_model.pkl
-│ ├── endo_scaler.pkl
-│ └── endo_feature_cols.pkl
+│   ├── pcos_model.pkl
+│   ├── pcos_scaler.pkl
+│   ├── pcos_feature_cols.pkl
+│   ├── endo_model.pkl
+│   ├── endo_scaler.pkl
+│   └── endo_feature_cols.pkl
 ├── femtriage.html
 ├── train.py
 ├── app.py
 ├── requirements.txt
 └── README.md
 ```
+
 ---
 
 ## ⚠️ Dataset Note
 
-The datasets are required to train the models.
+The CSV datasets are required to retrain the models. Ensure this structure exists before running `train.py`:
 
-Ensure this structure exists:
 ```
-  data/
+data/
 ├── PCOS.csv
-├── structured_endometriosis_data.csv
-
+└── structured_endometriosis_data.csv
 ```
----
 
+If datasets are missing, training will fail with `FileNotFoundError`.
 
-If datasets are missing, training will fail with:
-`FileNotFoundError`
-
-👉 Make sure these files are included in your repository or added manually.
+👉 The pre-trained `.pkl` files in `models/` are included in the repository — you can run the Streamlit app directly without retraining.
 
 ---
 
@@ -82,22 +78,24 @@ If datasets are missing, training will fail with:
 ```bash
 # Clone repo
 git clone https://github.com/fatimaasif1508-code/FemTriage.git
-cd femtriage
+cd FemTriage
 
 # Install dependencies
 pip install -r requirements.txt
 
-# Train models
+# (Optional) Retrain models — requires data/ CSVs
 python train.py
 
-# Run app
+# Run the Streamlit app
 streamlit run app.py
 ```
-🎥 Demo
-Open femtriage.html → Fully offline AI demo
-Or run Streamlit app for interactive interface
 
-👉 No backend required — models run directly in-browser
+---
+
+## 🎥 Demo
+
+- **Offline HTML demo** — open `femtriage.html` in any browser. Full GBM inference runs client-side with no backend or internet required.
+- **Streamlit app** — run `streamlit run app.py` for the full interactive interface (requires Python environment).
 
 ---
 
@@ -121,7 +119,7 @@ pcos_model  = joblib.load('models/pcos_model.pkl')
 pcos_scaler = joblib.load('models/pcos_scaler.pkl')
 pcos_cols   = joblib.load('models/pcos_feature_cols.pkl')
 
-patient['LH_FSH_ratio'] = patient['LH(mIU/mL)'] / patient['FSH(mIU/mL)']
+patient['LH_FSH_ratio']   = patient['LH(mIU/mL)'] / patient['FSH(mIU/mL)']
 patient['Total_Follicles'] = patient['Follicle No. (L)'] + patient['Follicle No. (R)']
 
 X = np.array([[patient[f] for f in pcos_cols]])
