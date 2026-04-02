@@ -41,7 +41,6 @@ FemTriage/
 ├── data/
 │   ├── PCOS.csv
 │   └── structured_endometriosis_data.csv
-├── models/
 │   ├── pcos_model.pkl
 │   ├── pcos_scaler.pkl
 │   ├── pcos_feature_cols.pkl
