@@ -196,7 +196,7 @@ pcos_model, pcos_scaler, pcos_cols, endo_model, endo_scaler, endo_cols, load_err
 
 # ── Header ────────────────────────────────────────────────────────────────────
 st.markdown('<div class="hero-title">FemTriage</div>', unsafe_allow_html=True)
-st.markdown('<div class="hero-sub">AI-assisted triage for PCOS & endometriosis · Harvard HSIL Hackathon 2026</div>', unsafe_allow_html=True)
+st.markdown('<div class="hero-sub">AI-assisted triage for PCOS & endometriosis</div>', unsafe_allow_html=True)
 
 if load_err:
     st.error(f"⚠️ Could not load models: `{load_err}`\n\nMake sure your `models/` folder is committed to the repo with all six `.pkl` files.")
