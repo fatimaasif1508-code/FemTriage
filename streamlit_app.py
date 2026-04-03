@@ -30,7 +30,7 @@ html, body, [class*="css"] {
 
 /* Background */
 .stApp {
-    background: #white;
+    background: #fdf8f4;
 }
 
 /* Hide Streamlit chrome */
@@ -164,12 +164,20 @@ div[data-testid="stRadio"] label {
     font-weight: 500;
     color: #3a3535;
 }
+
+/* Radio Yes/No option text — black */
+div[data-testid="stRadio"] label p {
+    color: #000000 !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
 
 # ── Load models ───────────────────────────────────────────────────────────────
-MODELS_DIR = "models"
+# Resolve models/ relative to this file, not the working directory.
+# This works on Streamlit Cloud, locally, and in any subfolder layout.
+_HERE = os.path.dirname(os.path.abspath(__file__))
+MODELS_DIR = os.path.join(_HERE, "models")
 
 @st.cache_resource
 def load_models():
