@@ -30,7 +30,7 @@ html, body, [class*="css"] {
 
 /* Background */
 .stApp {
-    background: #blue;
+    background: #white;
 }
 
 /* Hide Streamlit chrome */
